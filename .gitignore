@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+.next/
+out/
+preview.html
+.env*
+*.log
+.swarm/
