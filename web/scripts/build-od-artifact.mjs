@@ -1,19 +1,25 @@
 /**
- * Builds a single self-contained index.html for the Open Design design artifact.
+ * Builds a single self-contained preview.html for the Open Design project.
  *
- * Source : Next.js static export  ->  /Users/lars/.cache/opencode/amazu/web/out
- * Target : /Users/lars/.cache/opencode/amazu/od/index.html
+ * Source : web/out          (Next.js static export)
+ * Target : web/preview.html
  *
  * Everything is inlined (CSS, woff2 fonts, images) so the artifact renders
  * identically no matter how Open Design serves it. The hero video keeps its
  * <video> element but loses the mp4 source, so it falls back to the poster
  * frame (keeps the exact layout without a 2 MB payload).
+ *
+ * Usage: node scripts/build-od-artifact.mjs [outDir] [destFile]
  */
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const OUT = "/Users/lars/.cache/opencode/amazu/web/out";
-const DEST = "/Users/lars/.cache/opencode/amazu/od/index.html";
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const WEB = path.resolve(HERE, "..");
+
+const OUT = path.resolve(process.argv[2] || path.join(WEB, "out"));
+const DEST = path.resolve(process.argv[3] || path.join(WEB, "preview.html"));
 
 const MIME = {
   ".jpg": "image/jpeg",
@@ -66,6 +72,12 @@ html = html.replace(/\sautoPlay=""/g, " ").replace(/\sloop=""/g, " ");
 // ---- 5. tidy ----------------------------------------------------------
 html = html.replace(/<meta name="next-size-adjust" content=""\/>/g, "");
 html = html.replace(/<!--[^>]*-->/g, "");
+
+// Next generates a random build id per build. Pin it so the artifact is
+// byte-for-byte reproducible and does not show up as a diff every time.
+// The id lives inside the inlined flight payload, where the quotes are escaped.
+html = html.replace(/\\"b\\":\\"[A-Za-z0-9_-]{21}\\"/g, '\\"b\\":\\"amazu-friet-build\\"');
+html = html.replace(/"b":"[A-Za-z0-9_-]{21}"/g, '"b":"amazu-friet-build"');
 
 fs.mkdirSync(path.dirname(DEST), { recursive: true });
 fs.writeFileSync(DEST, html);

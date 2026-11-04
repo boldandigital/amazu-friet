@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:preview": "next build && node scripts/build-od-artifact.mjs",
+    "watch:preview": "node scripts/watch-preview.mjs"
   },
   "dependencies": {
     "next": "^15.5.29",

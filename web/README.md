@@ -39,6 +39,7 @@ lib/content.ts        all copy and product data in one place
 public/brand/         seal, lockup, cart icon
 public/images/        product photography, hero stills
 public/video/         hero loop
+scripts/              Open Design preview tooling
 preview.html          generated Open Design preview entry (git-ignored)
 ```
 
@@ -80,12 +81,17 @@ Open Design has no dev server, so the preview renders the built output.
 `preview.html` is a generated, fully self-contained copy of the export (CSS,
 webfonts and images inlined) and it is the project entry file.
 
-Regenerate it after every build:
+The Open Design project terminal opens in this folder. Run one of these there:
 
 ```bash
-npm run build
-node ../build-od-artifact.mjs   # writes web/preview.html
+npm run build:preview   # build once, then refresh the preview
+npm run watch:preview   # rebuild on every source change
 ```
+
+`build:preview` runs `next build` and then `scripts/build-od-artifact.mjs`,
+which inlines the CSS, the webfonts and the images into a single
+`preview.html`. The preview is served with `no-store`, so reloading it in
+Open Design shows the new build straight away.
 
 ## Notes
 

@@ -47,13 +47,23 @@ same system is registered in Open Design as `amaz-friet-design-system-f715c9`.
 
 ## Open Design
 
-`web/` is the Open Design project. Code mode shows the React source, and the
-preview renders `web/preview.html`, a generated self-contained copy of the
-build. Regenerate it after every build:
+`web/` is the Open Design project. Code mode shows the real React source
+(`app/page.tsx`, `app/globals.css`, `lib/content.ts`), so every change made in
+Open Design lands in the site that goes to Vercel.
+
+The preview renders `web/preview.html`, a generated self-contained copy of the
+build. Open Design does not run a build on its own, but it has a project
+terminal that opens in `web/`. Run one of these there:
 
 ```bash
-cd web && npm run build && node ../build-od-artifact.mjs
+npm run build:preview   # build once and refresh the preview
+npm run watch:preview   # rebuild on every source change
 ```
+
+`build:preview` runs `next build` and then `scripts/build-od-artifact.mjs`,
+which inlines the CSS, the fonts and the images into a single
+`preview.html`. The preview is served with `no-store`, so reloading the
+Open Design preview picks up the new build straight away.
 
 ## Deploy
 
