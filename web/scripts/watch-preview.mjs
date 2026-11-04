@@ -16,9 +16,12 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WEB = path.resolve(HERE, "..");
 const WATCH_DIRS = ["app", "lib"].map((d) => path.join(WEB, d));
 
+const NPM_BIN = path.join(path.dirname(process.execPath), "npm");
 const NPM = process.env.npm_execpath
   ? [process.execPath, process.env.npm_execpath]
-  : ["npm"];
+  : fs.existsSync(NPM_BIN)
+    ? [NPM_BIN]
+    : ["npm"];
 
 let timer = null;
 let running = false;

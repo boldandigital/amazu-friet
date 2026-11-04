@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.boldandigital.amazu-preview</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/lars/.local/bin/node</string>
+    <string>/Volumes/Extreme SSD/Projects/Amazu/web/scripts/watch-preview.mjs</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/Users/lars/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>/Users/lars/.cache/opencode/amazu/preview-watch.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/lars/.cache/opencode/amazu/preview-watch.err.log</string>
+</dict>
+</plist>

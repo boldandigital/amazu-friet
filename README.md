@@ -52,10 +52,18 @@ same system is registered in Open Design as `amaz-friet-design-system-f715c9`.
 Open Design lands in the site that goes to Vercel.
 
 The preview renders `web/preview.html`, a generated self-contained copy of the
-build. Open Design does not run a build on its own, but it has a project
-terminal that opens in `web/`. Run one of these there:
+build. A watcher keeps it in sync: it rebuilds whenever `app/` or `lib/`
+changes, so reloading the Open Design preview shows the edit. It is installed
+as a launch agent, so it is already running in the background:
 
 ```bash
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.boldandigital.amazu-preview.plist
+```
+
+To build by hand instead:
+
+```bash
+cd web
 npm run build:preview   # build once and refresh the preview
 npm run watch:preview   # rebuild on every source change
 ```

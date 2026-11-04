@@ -81,7 +81,11 @@ Open Design has no dev server, so the preview renders the built output.
 `preview.html` is a generated, fully self-contained copy of the export (CSS,
 webfonts and images inlined) and it is the project entry file.
 
-The Open Design project terminal opens in this folder. Run one of these there:
+A watcher keeps the preview in sync: it rebuilds `preview.html` whenever
+`app/` or `lib/` changes, so reloading the preview in Open Design shows the
+edit. It runs as a launch agent, so it is already going in the background.
+
+To build by hand:
 
 ```bash
 npm run build:preview   # build once, then refresh the preview
