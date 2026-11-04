@@ -55,6 +55,14 @@ build. Regenerate it after every build:
 cd web && npm run build && node ../build-od-artifact.mjs
 ```
 
+## Deploy
+
+The site deploys from this repository by hand. Import
+`boldandigital/amazu-friet` into Vercel and keep the root directory at `web`,
+which `vercel.json` already sets. Vercel detects the Next.js framework, runs
+`npm run build` and serves the static export from `web/out`. No environment
+variables are required for the site to build.
+
 ## Copyright
 
 Brand, photography and copy belong to Amazú Friet.
